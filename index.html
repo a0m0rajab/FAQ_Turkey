@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>FAQ Turkey</title>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.1/animate.min.css"></script>
+</head>
+<style>
+    .c-faq__answer {
+        position: absolute;
+        opacity: 0;
+        z-index: -1;
+    }
+    
+    body {
+        box-sizing: border-box;
+        font-family: "ABeeZee", sans-serif;
+        line-height: 1.48;
+        font-size: 16px;
+        color: #333;
+    }
+    
+    body *,
+    body *::after,
+    body *::before {
+        box-sizing: inherit;
+    }
+    
+    .container {
+        max-width: 1100px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .section__headline {
+        font-family: "Varela Round", sans-serif;
+        font-size: 62px;
+        font-weight: light;
+        color: #1e88e5;
+        padding-right: 15px;
+        padding-top: 30px;
+    }
+    
+    .c-faqs__headline {
+        font-family: "Varela Round", sans-serif;
+        text-align: right;
+        padding-right: 15px;
+        font-size: 1.5em;
+        margin-top: 1.5em;
+        font-weight: bold;
+    }
+    
+    .c-faqs {
+        margin: 15px 0;
+        padding: 0 15px;
+        border-top: 1px solid transparent;
+        border-bottom: 1px solid transparent;
+    }
+    
+    .c-faqs::before {
+        width: 2px;
+        height: 100%;
+        right: 50%;
+        position: absolute;
+        background: #1e88e5;
+        opacity: 0;
+        -webkit-transform-origin: 0 50%;
+        transform-origin: 0 50%;
+        content: "";
+    }
+    
+    .c-faq {
+        font-family: "Varela Round", sans-serif;
+        list-style: none;
+        margin: 10px 0 5px;
+    }
+    
+    .c-faq__title {
+        cursor: pointer;
+        font-weight: bold;
+        background: white;
+        z-index: 10;
+        position: relative;
+        font-size: 1.1em;
+    }
+    
+    .c-faq__title:hover {
+        text-decoration: underline;
+    }
+    
+    .c-faq__title::after {
+        white-space: nowrap;
+        font-weight: 300;
+        padding-right: 5px;
+        opacity: 0;
+        -webkit-transform-origin: 11px;
+        transform-origin: 11px;
+        -webkit-transform: rotateZ(90deg);
+        transform: rotateZ(90deg);
+        display: none;
+        content: ">";
+    }
+    
+    .c-faq--active .c-faq__title {
+        color: #1e88e5;
+    }
+    
+    .c-faq--active .c-faq__title::after {
+        opacity: 1;
+        -webkit-transform: rotateZ(90deg);
+        transform: rotateZ(90deg);
+        display: inline-block;
+    }
+    
+    .c-faq__answer {
+        font-weight: normal;
+        margin-top: -10%;
+        -webkit-transition: all 0.1s;
+        transition: all 0.1s;
+        z-index: 1;
+        font-size: 0.9em;
+        color: #414141;
+    }
+    
+    .c-faq--active .c-faq__answer {
+        opacity: 1;
+        position: relative;
+        top: 0;
+        right: 0;
+        font-weight: 300;
+        margin-top: 0;
+        -webkit-transition: all 0.2s;
+        transition: all 0.2s;
+    }
+    
+    @media (min-width: 780px) {
+        .c-faqs {
+            position: relative;
+            margin-left: auto;
+            margin-right: auto;
+            height: auto;
+        }
+        .c-faqs::before {
+            opacity: 0.2;
+        }
+        .c-faq {
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+        .c-faq .c-faq__title {
+            width: 50%;
+            padding-right: 40px;
+            display: inline-block;
+        }
+        .c-faq .c-faq__title::after {
+            display: none;
+        }
+        .c-faq .c-faq__answer {
+            position: absolute;
+            top: 50%;
+            -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+            right: 50%;
+            width: 50%;
+            padding: 0 20px 0 40px;
+        }
+    }
+    
+    .c-note {
+        font-size: 0.8em;
+        padding-right: 15px;
+        opacity: 0.5;
+        -webkit-transition: opacity 0.2s ease-in-out;
+        transition: opacity 0.2s ease-in-out;
+    }
+    
+    .c-note:hover {
+        opacity: 1;
+        -webkit-transition: opacity 0.2s ease-in-out;
+        transition: opacity 0.2s ease-in-out;
+    }
+    
+    .c-note a {
+        color: #1e88e5;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <h1 class="section__headline">الحياة في تركيا</h1>
+
+        <!-- <span class="c-note">Source: <a href="#">relaxits.com</a></span> -->
+    </div>
+    <script>
+        let url = "https://spreadsheets.google.com/feeds/cells/1mGzdKFiQv8wexOnD1godkhM4n3ECvLppUvxpMkxp6fs/od6/public/values?alt=json"
+        let questions = [
+                ["العمل", "ما هي شروط العمل", "لا اعلم اي شيء عن شروط العمل"],
+                ["العمل", "ما هي شروط العمل", "لا اعلم اي شيء عن شروط العمل"],
+                ["العمل", "ما هي شروط العمل", "لا اعلم اي شيء عن شروط العمل"],
+                ["العمل", "ما هي شروط العمل", "لا اعلم اي شيء عن شروط العمل"],
+                ["الحياة العملية", "ما هي شروط العمل", "لا اعلم اي شيء عن شروط العمل"],
+                ["الحياة العملية", "ما هي شروط العمل", "لا اعلم اي شيء عن شروط العمل"],
+                ["الحياة العملية", "ما هي شروط العمل", "لا اعلم اي شيء عن شروط العمل"],
+                ["الحياة العملية", "ما هي شروط العمل", "لا اعلم اي شيء عن شروط العمل"],
+            ]
+            // create Question and its answwer, return the elemant to add to the section
+        function createQA(qtitle, qanswer) {
+            let cont = document.createElement("li")
+            cont.classList.add('c-faq');
+            let title = document.createElement("span")
+            title.classList.add("c-faq__title");
+            title.innerText = qtitle;
+            cont.appendChild(title)
+            let answer = document.createElement("div")
+            answer.classList.add("c-faq__answer");
+            answer.innerText = qanswer;
+            cont.appendChild(answer)
+            return cont
+        }
+
+        // add and create section.
+        function createSection(sectionName) {
+            let name = document.createElement("h2");
+            name.classList.add("c-faqs__headline")
+            name.innerText = sectionName
+            let section = document.createElement("ul");
+            section.id = sectionName
+            section.classList.add("c-faqs");
+            let h = document.getElementsByClassName("container")[0]
+            h.appendChild(name);
+            h.appendChild(section);
+            return section
+        }
+
+
+        let source = []
+
+        function readLinkData(url) {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.open('GET', url, true);
+            xmlhttp.onreadystatechange = function() {
+                if (xmlhttp.readyState == 4) {
+                    if (xmlhttp.status == 200) {
+                        var obj = JSON.parse(xmlhttp.responseText);
+                        entry = obj.feed.entry
+                        for (i = 0; i < entry.length; i += 3)
+                            source.push([entry[i].content.$t, entry[i + 1].content.$t, entry[i + 2].content.$t]);
+                        createPage(source);
+
+                    }
+                }
+            };
+            xmlhttp.send(null);
+        }
+
+        function createPage(questions) {
+            questions.forEach(element => {
+                if (document.getElementById(element[0]) === null) {
+                    createSection(element[0])
+                }
+                let h = document.getElementById(element[0]);
+                h.appendChild(createQA(element[1], element[2]));
+
+            });
+        }
+
+        function generatePage() {
+            readLinkData(url)
+
+        }
+        generatePage();
+    </script>
+    <script>
+        $('body').delegate('.c-faq', 'click', function() {
+            $('.c-faq').removeClass('c-faq--active');
+            $(this).addClass('c-faq--active');
+        });
+        //# sourceURL=pen.js
+    </script>
+</body>
+
+</html>
+
+<!-- ref 
+https://stackoverflow.com/questions/20743186/get-json-array-with-pure-js
+https://medium.com/dali-lab/google-sheets-and-json-easy-backend-e29e9ef3df2
+// did not use this for security reasons : 
+https://developers.google.com/sheets/api/guides/values
+https://stackoverflow.com/questions/10664741/reading-an-e-pub-file
+google and check :
+chrome disable web security
+https://alfilatov.com/posts/run-chrome-without-cors/
+https://www.chromium.org/Home/chromium-security/corb-for-developers
+https://www.chromestatus.com/feature/5629709824032768
+
+TOODO: 
+Tutorial
+check if there is better desgin later 
+write your name, and get google analytics 
+Add sources 
+-->
